@@ -1,69 +1,79 @@
-# React + TypeScript + Vite
+# Mini Pokedex App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive web application built with React and TypeScript that allows users to browse and explore Pokemon data using the PokéAPI.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**[View Live Application]()**
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Browse Pokemon**: View a paginated list of Pokemon with images and names
+- **Detailed Information**: Click any Pokemon to see detailed stats, types, and abilities
+- **Search Functionality**: Search for specific Pokemon by name
+- **Responsive Design**: Mobile-friendly interface that works on all devices
+- **Loading States**: Loading indicators throughout the app
+- **Error Handling**: Graceful error handling with user-friendly messages
+- **URL State Management**: URLs with search and pagination state
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **React** - Modern React with hooks
+- **TypeScript** - Type-safe development
+- **React Router** - Client-side routing
+- **Tailwind CSS** - Utility-first CSS framework
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Installation & Setup
+
+### Prerequisites
+
+- Node.js (version 16 or higher)
+- npm or yarn package manager
+
+### 1. Clone the Repository
+
+```
+git clone https://github.com/your-username/mini-pokedex-app.git
+cd mini-pokedex-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+# Using npm
+npm install
+
+# Or using yarn
+yarn install
+```
+
+### 3. Start Development Server
+
+```
+# Using npm
+npm run dev
+
+# Or using yarn
+yarn dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### 4. Build for Production
+
+```
+# Using npm
+npm run build
+
+# Or using yarn
+yarn build
+```
+
+## API Usage
+
+This application uses the free [PokéAPI](https://pokeapi.co/) to fetch Pokemon data:
+
+- **Pokemon List**: `https://pokeapi.co/api/v2/pokemon?limit=20&offset=0`
+- **Pokemon Details**: `https://pokeapi.co/api/v2/pokemon/{name-or-id}`
+- **Pokemon Images**: Uses the official Pokemon sprites from GitHub
+
