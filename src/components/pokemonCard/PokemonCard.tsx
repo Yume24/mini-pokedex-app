@@ -1,5 +1,7 @@
 import type {PokemonBasic, PokemonDetails} from "../../types/pokemon";
 import {useEffect, useState} from "react";
+import PokemonCardLoading from "./PokemonCardLoading.tsx";
+import PokemonCardError from "./PokemonCardError.tsx";
 
 export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
     const [imageUrl, setImageUrl] = useState("");
@@ -9,6 +11,7 @@ export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
         function parseData(data: PokemonDetails) {
             return data.sprites.front_default;
         }
+
         async function fetchPokemonImage() {
             setIsLoading(true);
             setHasError(false);
@@ -27,15 +30,17 @@ export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
             }
         }
 
-        fetchPokemonImage()
-    }, []);
+        void fetchPokemonImage()
+    }, [pokemon.url]);
+
     return (
-        <div className="card shadow-sm m-5 w-30">
+        <div className="card shadow-sm m-5 w-40 h-50 border-accent border">
             <figure>
-                <img src={imageUrl} alt={pokemon.name}/>
+                {isLoading ? <PokemonCardLoading/> : hasError ? <PokemonCardError/> :
+                    <img className="object-cover object-center" src={imageUrl} alt={pokemon.name}/>}
             </figure>
-            <div className="card-body">
-                <h2 className="card-title text-center">{pokemon.name}</h2>
+            <div className="card-body justify-center text-center">
+                <h2 className="card-title">{pokemon.name}</h2>
             </div>
         </div>
     );
