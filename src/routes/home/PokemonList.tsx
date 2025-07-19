@@ -1,22 +1,11 @@
 import {useEffect, useState} from "react";
-import type {PokemonBasic, PokemonListAPIResponse} from "../../types/pokemon";
+import type {PokemonBasic} from "../../types/pokemon";
 import PokemonCard from "../../components/pokemonCard/PokemonCard.tsx";
-import {useSearchParams} from "react-router";
+import {Link, useSearchParams} from "react-router";
 import Pagination from "../../components/pagination/Pagination.tsx";
 import PokemonListLoading from "./PokemonListLoading.tsx";
 import PokemonListError from "./PokemonListError.tsx";
-
-
-const url = "https://pokeapi.co/api/v2/pokemon";
-
-function constructUrl(page: number | null, pokemonPerPage: number) {
-    if (page) {
-        const offset = (page - 1) * pokemonPerPage;
-        return `${url}?limit=${pokemonPerPage}&offset=${offset}`
-    } else {
-        return `${url}?limit=${pokemonPerPage};`
-    }
-}
+import {fetchPokemon} from "./utilities.ts";
 
 export default function PokemonList() {
     const [pokemonList, setPokemonList] = useState<PokemonBasic[]>([]);
@@ -25,38 +14,33 @@ export default function PokemonList() {
     const [pagesMaxNumber, setPagesMaxNumber] = useState(1);
     const [searchParams] = useSearchParams();
     const page = Number(searchParams.get("page") || 1);
+    const searchTerm = searchParams.get("search");
     const pokemonPerPage = 20;
 
     useEffect(() => {
-        function parseData(data: PokemonListAPIResponse): PokemonBasic[] {
-            return data.results.map((pokemon) => ({
-                name: pokemon.name,
-                url: pokemon.url,
-            }))
-        }
-
-        async function fetchPokemon() {
-            setIsLoading(true);
-            setHasError(false);
-            try {
-                const response = await fetch(constructUrl(page, pokemonPerPage));
-                if (!response.ok) {
-                    throw new Error(response.statusText);
-                }
-                const json = (await response.json()) as PokemonListAPIResponse;
-                setPokemonList(parseData(json));
-                setPagesMaxNumber(Math.ceil(json.count / pokemonPerPage))
+        if (searchTerm) {
+            fetchPokemon(null, -1).then((result) => {
+                setPokemonList(result.pokemonList.filter(pokemon => pokemon.name.startsWith(searchTerm)))
                 setIsLoading(false);
-
-            } catch (error) {
+                setHasError(false);
+            }).catch(error => {
                 setHasError(true);
                 setIsLoading(false);
                 console.error(error);
-            }
+            })
+        } else {
+            fetchPokemon(page, pokemonPerPage).then((result) => {
+                setPokemonList(result.pokemonList)
+                setIsLoading(false);
+                setHasError(false);
+                setPagesMaxNumber(result.count)
+            }).catch((error) => {
+                setHasError(true);
+                setIsLoading(false);
+                console.error(error);
+            })
         }
-
-        void fetchPokemon();
-    }, [page]);
+    }, [page, searchTerm]);
 
     if (isLoading) {
         return <PokemonListLoading/>
@@ -65,10 +49,12 @@ export default function PokemonList() {
     } else {
         return (
             <>
+                {searchTerm ? (<><h2>Search results for "{searchTerm}"</h2>
+                    <Link className="btn" to="/">Go back</Link></>) : null}
                 <div className="w-9/10 m-auto flex items-center flex-wrap">
                     {pokemonList.map((pokemon, index) => <PokemonCard key={index} pokemon={pokemon}/>)}
                 </div>
-                <Pagination maxPage={pagesMaxNumber}/>
+                {!searchTerm ? <Pagination maxPage={pagesMaxNumber}/> : null}
             </>
         );
     }
