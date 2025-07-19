@@ -19,12 +19,12 @@ export default function PokemonDetails() {
                 if (!cancelled) {
                     setPokemonDetails(result);
                     setIsLoading(false);
-                    setHasError(false)
+                    setHasError(false);
                 }
             }).catch((error) => {
                 if (!cancelled) {
                     setHasError(true);
-                    setIsLoading(false)
+                    setIsLoading(false);
                     console.error(error);
                 }
             })

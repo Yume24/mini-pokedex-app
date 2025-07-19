@@ -33,6 +33,7 @@ export default function PokemonList() {
                 setPokemonList(filteredList);
                 setMaxPage(Math.ceil(result.count / POKEMON_PER_PAGE));
                 setIsLoading(false);
+                setHasError(false);
             })
             .catch((error) => {
                 setHasError(true);
