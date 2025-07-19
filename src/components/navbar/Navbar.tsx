@@ -7,7 +7,7 @@ export default function Navbar() {
             <img className="w-100" src="/navbar_icon.png" alt="Mini Pokedex App"/>
         </div>
         <div className="navbar-end">
-            <Search />
+            <Search/>
         </div>
     </nav>)
 }
