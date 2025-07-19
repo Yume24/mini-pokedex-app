@@ -1,3 +1,5 @@
 export default function PokemonCardLoading() {
-    return <span className="loading loading-spinner loading-md"></span>
+    return (<div className="h-30 flex justify-center items-center">
+        <span className="loading loading-spinner loading-md"></span>
+    </div>)
 }
