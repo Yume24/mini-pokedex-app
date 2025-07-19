@@ -8,7 +8,7 @@ export default function PokemonDetailsDisplay({pokemon, name}: { pokemon: Pokemo
             <div className="flex flex-col md:flex-row items-center">
                 <figure className="p-6">
                     <img
-                        className="w-40 h-40 object-contain"
+                        className="w-80 md:w-150 object-contain"
                         src={pokemon.sprites.front_default}
                         alt={`Image of ${name}`}
                     />

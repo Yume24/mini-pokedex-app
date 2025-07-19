@@ -15,8 +15,8 @@ export default function PokemonListDisplay({pokemonList, searchTerm, maxPage}: {
                     <h2 className="text-xl">
                         Search results for <strong>{searchTerm}</strong>
                     </h2>
-                    <Link className="btn mt-2" to="/">
-                        Clear search
+                    <Link className="btn btn-neutral btn-outline mt-2" to="/">
+                        Go back
                     </Link>
                 </div>
             )}
