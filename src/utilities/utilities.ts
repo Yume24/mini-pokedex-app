@@ -23,3 +23,11 @@ export async function fetchPokemonDetails(url: string): Promise<PokemonDetailsAP
     if (!res.ok) throw new Error(res.statusText);
     return (await res.json()) as PokemonDetailsAPIResponse;
 }
+
+
+/*
+* NOTE
+* Some pokemon do not have a usual sprite so their images cannot be displayed, and it needs to be handled
+* by displaying a fallback image
+* */
+export const pathToFallbackImage = "/question-mark.svg";

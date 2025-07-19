@@ -1,8 +1,8 @@
-export type PokemonBasic = {
+type PokemonBasic = {
     name: string;
     url: string;
 }
-
+export type PokemonBasicWithId = PokemonBasic & { id: number }
 export type PokemonListAPIResponse = {
     count: number;
     results: PokemonBasic[];

@@ -1,5 +1,6 @@
 import type {PokemonDetailsAPIResponse} from "../../types/pokemon";
 import {useNavigate} from "react-router";
+import {pathToFallbackImage} from "../../utilities/utilities.ts";
 
 export default function PokemonDetailsDisplay({pokemon, name}: { pokemon: PokemonDetailsAPIResponse, name: string }) {
     const navigate = useNavigate()
@@ -9,7 +10,7 @@ export default function PokemonDetailsDisplay({pokemon, name}: { pokemon: Pokemo
                 <figure className="p-6">
                     <img
                         className="w-80 md:w-150 object-contain"
-                        src={pokemon.sprites.front_default}
+                        src={pokemon.sprites.front_default || pathToFallbackImage}
                         alt={`Image of ${name}`}
                     />
                 </figure>
