@@ -44,5 +44,6 @@ export default function PokemonList() {
     if (isLoading) return <PokemonListLoading/>;
     if (hasError) return <PokemonListError/>;
 
-    return <PokemonListDisplay pokemonList={pokemonList} searchTerm={searchTerm} maxPage={maxPage}/>
+    return <PokemonListDisplay pokemonList={pokemonList} searchTerm={searchTerm} maxPage={maxPage} page={page}
+                               pokemonPerPage={POKEMON_PER_PAGE}/>
 }

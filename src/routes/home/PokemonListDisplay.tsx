@@ -3,10 +3,12 @@ import PokemonCard from "../../components/pokemonCard/PokemonCard.tsx";
 import Pagination from "../../components/pagination/Pagination.tsx";
 import type {PokemonBasic} from "../../types/pokemon";
 
-export default function PokemonListDisplay({pokemonList, searchTerm, maxPage}: {
+export default function PokemonListDisplay({pokemonList, searchTerm, maxPage, page, pokemonPerPage}: {
     pokemonList: PokemonBasic[],
     searchTerm: string | undefined
     maxPage: number
+    page: number
+    pokemonPerPage: number
 }) {
     return (
         <div className="my-5">
@@ -21,8 +23,8 @@ export default function PokemonListDisplay({pokemonList, searchTerm, maxPage}: {
                 </div>
             )}
             <div className="w-11/12 mx-auto flex flex-wrap justify-center">
-                {pokemonList.map((pokemon) => (
-                    <PokemonCard key={pokemon.name} pokemon={pokemon}/>
+                {pokemonList.map((pokemon, index) => (
+                    <PokemonCard key={pokemon.name} pokemon={pokemon} id={index + 1 + (page - 1) * pokemonPerPage}/>
                 ))}
             </div>
             {!searchTerm && <Pagination maxPage={maxPage}/>}

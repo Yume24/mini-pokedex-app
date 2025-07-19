@@ -1,55 +1,20 @@
-import {useEffect, useState} from "react";
 import type {PokemonBasic} from "../../types/pokemon";
-import PokemonCardLoading from "./PokemonCardLoading";
-import PokemonCardError from "./PokemonCardError";
-import {fetchPokemonDetails} from "../../utilities/utilities";
 import {Link} from "react-router";
 
-export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
-    const [imageUrl, setImageUrl] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);
+const imageBaseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
 
-    useEffect(() => {
-        let cancelled = false;
-        fetchPokemonDetails(pokemon.url)
-            .then((result) => {
-                if (!cancelled) {
-                    setImageUrl(result.sprites.front_default);
-                    setIsLoading(false);
-                    setHasError(false);
-                }
-            })
-            .catch((error) => {
-                if (!cancelled) {
-                    setIsLoading(false);
-                    setHasError(true);
-                    console.error(error);
-                }
-            });
-
-        return () => {
-            cancelled = true;
-        };
-    }, [pokemon.url]);
-
+export default function PokemonCard({pokemon, id}: { pokemon: PokemonBasic, id: number }) {
     return (
         <Link
             className="hover:scale-105 cursor-pointer transition card shadow-lg m-2 w-40 h-50 border border-neutral"
             to={`/pokemon/${pokemon.name}`}
         >
             <figure>
-                {isLoading ? (
-                    <PokemonCardLoading/>
-                ) : hasError ? (
-                    <PokemonCardError/>
-                ) : (
-                    <img
-                        className="object-cover h-30 p-1"
-                        src={imageUrl}
-                        alt={`image of ${pokemon.name}`}
-                    />
-                )}
+                <img
+                    className="object-cover h-30 p-1"
+                    src={`${imageBaseUrl}${id}.png`}
+                    alt={`image of ${pokemon.name}`}
+                />
             </figure>
             <div className="card-body py-1">
                 <h2 className="card-title text-center m-auto capitalize">{pokemon.name}</h2>
