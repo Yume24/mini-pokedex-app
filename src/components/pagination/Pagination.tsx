@@ -29,10 +29,12 @@ export default function Pagination({maxPage}: { maxPage: number }) {
             </button>
             <div className="mx-4 flex items-center">
                 <span className="mr-2">Page</span>
+                <label htmlFor="select" className="sr-only">Select page</label>
                 <select
                     className="select select-bordered select-sm w-20"
                     value={currentPage}
                     onChange={handlePageSelect}
+                    id="select"
                 >
                     {pageOptions.map(page => (
                         <option key={page} value={page}>
