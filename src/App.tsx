@@ -10,7 +10,7 @@ function App() {
     const router = createBrowserRouter(createRoutesFromElements(
         <Route path="/" element={<RootLayout/>} errorElement={<ErrorPage/>}>
             <Route index={true} element={<PokemonList/>}/>
-            <Route path="details/:id" element={<PokemonDetails/>}/>
+            <Route path="pokemon/:name" element={<PokemonDetails/>}/>
         </Route>
     ))
 

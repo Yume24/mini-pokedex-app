@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
-import {Link, useSearchParams} from "react-router"
+import {useSearchParams} from "react-router"
 import type {PokemonBasic} from "../../types/pokemon";
-import {fetchPokemon} from "../../utilities/utilities.ts";
-import PokemonCard from "../../components/pokemonCard/PokemonCard";
-import Pagination from "../../components/pagination/Pagination";
+import {constructUrlPokemonList, fetchPokemonList} from "../../utilities/utilities.ts";
 import PokemonListLoading from "./PokemonListLoading";
 import PokemonListError from "./PokemonListError";
+import PokemonListDisplay from "./PokemonListDisplay.tsx";
 
 const POKEMON_PER_PAGE = 20;
 
@@ -23,13 +22,13 @@ export default function PokemonList() {
         setIsLoading(true);
         setHasError(false);
 
-        fetchPokemon(searchTerm ? null : page, searchTerm ? -1 : POKEMON_PER_PAGE)
+        fetchPokemonList(constructUrlPokemonList(searchTerm ? null : page, searchTerm ? -1 : POKEMON_PER_PAGE))
             .then((result) => {
                 const filteredList = searchTerm
-                    ? result.pokemonList.filter((pokemon) =>
+                    ? result.results.filter((pokemon) =>
                         pokemon.name.startsWith(searchTerm)
                     )
-                    : result.pokemonList;
+                    : result.results;
 
                 setPokemonList(filteredList);
                 setMaxPage(Math.ceil(result.count / POKEMON_PER_PAGE));
@@ -45,24 +44,5 @@ export default function PokemonList() {
     if (isLoading) return <PokemonListLoading/>;
     if (hasError) return <PokemonListError/>;
 
-    return (
-        <div className="my-5">
-            {searchTerm && (
-                <div className="mb-4 text-center">
-                    <h2 className="text-xl">
-                        Search results for <strong>{searchTerm}</strong>
-                    </h2>
-                    <Link className="btn mt-2" to="/">
-                        Clear search
-                    </Link>
-                </div>
-            )}
-            <div className="w-11/12 mx-auto flex flex-wrap justify-center">
-                {pokemonList.map((pokemon) => (
-                    <PokemonCard key={pokemon.name} pokemon={pokemon}/>
-                ))}
-            </div>
-            {!searchTerm && <Pagination maxPage={maxPage}/>}
-        </div>
-    );
+    return <PokemonListDisplay pokemonList={pokemonList} searchTerm={searchTerm} maxPage={maxPage}/>
 }

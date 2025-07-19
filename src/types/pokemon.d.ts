@@ -5,12 +5,28 @@ export type PokemonBasic = {
 
 export type PokemonListAPIResponse = {
     count: number;
-    next: string | null;
-    previous: string | null;
     results: PokemonBasic[];
 }
-
-export type PokemonDetails = {
+type PokemonType = {
+    type: {
+        name: string
+    }
+}
+type PokemonStat = {
+    base_stat: number
+    stat: {
+        name: string
+    }
+}
+type PokemonAbility = {
+    ability: {
+        name: string
+    }
+}
+export type PokemonDetailsAPIResponse = {
+    abilities: PokemonAbility[]
+    stats: PokemonStat[]
+    types: PokemonType[]
     sprites: {
         front_default: string;
     }

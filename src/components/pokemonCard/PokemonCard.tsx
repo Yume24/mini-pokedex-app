@@ -2,7 +2,8 @@ import {useEffect, useState} from "react";
 import type {PokemonBasic} from "../../types/pokemon";
 import PokemonCardLoading from "./PokemonCardLoading";
 import PokemonCardError from "./PokemonCardError";
-import {fetchPokemonImage} from "../../utilities/utilities";
+import {fetchPokemonDetails} from "../../utilities/utilities";
+import {Link} from "react-router";
 
 export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
     const [imageUrl, setImageUrl] = useState("");
@@ -11,10 +12,10 @@ export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
 
     useEffect(() => {
         let cancelled = false;
-        fetchPokemonImage(pokemon.url)
+        fetchPokemonDetails(pokemon.url)
             .then((result) => {
                 if (!cancelled) {
-                    setImageUrl(result);
+                    setImageUrl(result.sprites.front_default);
                     setIsLoading(false);
                     setHasError(false);
                 }
@@ -33,10 +34,9 @@ export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
     }, [pokemon.url]);
 
     return (
-        <div
+        <Link
             className="hover:scale-105 cursor-pointer transition card shadow-lg m-2 w-40 h-50 border border-neutral"
-            role="button"
-            onClick={() => alert(pokemon.name)}
+            to={`/pokemon/${pokemon.name}`}
         >
             <figure>
                 {isLoading ? (
@@ -54,6 +54,6 @@ export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
             <div className="card-body py-1">
                 <h2 className="card-title text-center m-auto capitalize">{pokemon.name}</h2>
             </div>
-        </div>
+        </Link>
     );
 }

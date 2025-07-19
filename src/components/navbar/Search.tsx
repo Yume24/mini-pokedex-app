@@ -14,8 +14,7 @@ export default function Search() {
         e.preventDefault();
         const params = new URLSearchParams(searchParams);
         params.set("search", input.trim());
-        params.set("page", "1");
-        navigate(`?${params.toString()}`);
+        navigate(`/?${params.toString()}`);
     };
 
     return (
