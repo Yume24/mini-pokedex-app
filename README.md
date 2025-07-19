@@ -4,7 +4,7 @@ A modern, responsive web application built with React and TypeScript that allows
 
 ## Live Demo
 
-**[View Live Application]()**
+**[View Live Application](https://mini-pokedex-app-six.vercel.app/)**
 
 ## Features
 
