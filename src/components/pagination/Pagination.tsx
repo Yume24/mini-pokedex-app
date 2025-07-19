@@ -15,7 +15,7 @@ export default function Pagination({maxPage}: { maxPage: number }) {
         <div className="flex justify-center items-center m-auto mt-4">
             <button
                 onClick={() => changePage(-1)}
-                className="btn"
+                className="btn btn-neutral btn-outline"
                 disabled={currentPage === 1}
             >
                 «
@@ -23,7 +23,7 @@ export default function Pagination({maxPage}: { maxPage: number }) {
             <span className="mx-4">Page {currentPage}</span>
             <button
                 onClick={() => changePage(1)}
-                className="btn"
+                className="btn btn-neutral btn-outline"
                 disabled={currentPage === maxPage}
             >
                 »
