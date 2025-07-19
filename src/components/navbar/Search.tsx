@@ -19,7 +19,7 @@ export default function Search() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex items-center gap-2 mb-4">
+        <form onSubmit={handleSubmit} className="flex items-center gap-2 mx-5">
             <label htmlFor="search" className="sr-only">
                 Search for Pokémon
             </label>
@@ -31,7 +31,7 @@ export default function Search() {
                 placeholder="Search Pokémon"
                 className="input input-bordered text-black"
             />
-            <button type="submit" className="btn btn-outline">
+            <button type="submit" className="btn btn-outline hover:bg-white hover:border-white">
                 Search
             </button>
         </form>

@@ -34,7 +34,7 @@ export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
 
     return (
         <div
-            className="hover:scale-105 cursor-pointer transition card shadow m-2 w-40 border border-accent"
+            className="hover:scale-105 cursor-pointer transition card shadow-lg m-2 w-40 h-50 border border-neutral"
             role="button"
             onClick={() => alert(pokemon.name)}
         >
@@ -45,13 +45,13 @@ export default function PokemonCard({pokemon}: { pokemon: PokemonBasic }) {
                     <PokemonCardError/>
                 ) : (
                     <img
-                        className="object-cover h-30"
+                        className="object-cover h-30 p-1"
                         src={imageUrl}
                         alt={`image of ${pokemon.name}`}
                     />
                 )}
             </figure>
-            <div className="card-body">
+            <div className="card-body py-1">
                 <h2 className="card-title text-center m-auto capitalize">{pokemon.name}</h2>
             </div>
         </div>

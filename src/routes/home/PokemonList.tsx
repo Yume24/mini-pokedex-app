@@ -46,10 +46,10 @@ export default function PokemonList() {
     if (hasError) return <PokemonListError/>;
 
     return (
-        <>
+        <div className="my-5">
             {searchTerm && (
                 <div className="mb-4 text-center">
-                    <h2>
+                    <h2 className="text-xl">
                         Search results for <strong>{searchTerm}</strong>
                     </h2>
                     <Link className="btn mt-2" to="/">
@@ -63,6 +63,6 @@ export default function PokemonList() {
                 ))}
             </div>
             {!searchTerm && <Pagination maxPage={maxPage}/>}
-        </>
+        </div>
     );
 }
