@@ -1,9 +1,8 @@
 import {type ChangeEvent, type FormEvent, useState} from "react";
-import {useNavigate, useSearchParams} from "react-router";
+import {useNavigate} from "react-router";
 
 export default function Search() {
     const [input, setInput] = useState("");
-    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
     const handleChange = ({target}: ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +11,7 @@ export default function Search() {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams();
         params.set("search", input.trim());
         setInput("");
         navigate(`/?${params.toString()}`);
